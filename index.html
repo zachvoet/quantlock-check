@@ -1,0 +1,173 @@
+TEST123<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Readiness Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calm, expert, a security briefing you can finish on a phone in two minutes
+IDEA: a vault-door readiness gauge; the lock closes as your score rises
+PICTURE: large score ring with a padlock that locks at "on track"
+COLOUR and TYPE: QuantLock navy field, purple primary, cyan accent; Source Serif titles, Inter body
+LAYOUT: one calm column, one question per screen, big tap targets, result first then next steps */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0e1430);--ink:light-dark(#0b1026,#eef1f8);--mut:light-dark(#5b6482,#aab2cc);--card:light-dark(#eef1f8,#1b2447);--line:light-dark(#d9deea,#2c3666);--pur:#5b3fd6;--cy:#19d3c0;--navy:#1b2447;--gold:#f2b84b;--red:#e5484d}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,.big{font-family:"Source Serif 4",Cambria,Georgia,serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,7vw,48px)}h2{font-size:clamp(24px,5vw,32px)}
+.top{background:var(--navy);color:#fff;padding:clamp(24px,5vw,48px) max(5vw,18px) clamp(28px,5vw,52px)}
+.wrap{max-width:640px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.lg{width:56px;height:56px;flex:none}
+.brand b{font-size:18px;letter-spacing:.02em}.brand span{display:block;font-size:13px;color:#aab2cc}
+.top p{color:#d9deea;font-size:17px;margin:14px 0 22px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.meta span{background:rgba(255,255,255,.1);border-radius:99px;padding:6px 12px;font-size:14px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;min-height:48px;padding:12px 20px;font-weight:700}
+button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:2px}
+.go{background:var(--cy);color:#0b1026;font-size:17px;width:100%;max-width:360px}
+.band{padding:clamp(24px,4vw,48px) max(5vw,18px)}
+.bar{height:8px;background:var(--card);border-radius:99px;overflow:hidden;margin:6px 0 20px}
+.bar i{display:block;height:100%;background:var(--pur);width:0;transition:width .3s}
+.qn{font-size:14px;color:var(--mut);font-weight:600}
+.q{font-size:clamp(20px,4.5vw,24px);font-weight:700;margin:6px 0 6px;line-height:1.3}
+.hint{color:var(--mut);font-size:15px;margin:0 0 18px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:2px solid transparent;margin-bottom:10px;font-weight:600;padding:14px 16px}
+.opt:hover{border-color:var(--pur)}.opt small{display:block;font-weight:400;color:var(--mut);font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px}
+.ghost{background:none;color:var(--mut);padding:12px 4px}
+.hide{display:none}
+.res{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;align-items:center}
+.ring{position:relative;width:200px;height:200px}
+.ring svg{width:100%;height:100%}
+.ring .big{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:44px}
+.ring .big small{display:block;font:600 14px Inter,sans-serif;color:var(--mut)}
+.tag{display:inline-block;border-radius:99px;padding:5px 12px;font-weight:700;font-size:14px;margin-bottom:10px}
+.gaps{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.gaps li{background:var(--card);border-radius:12px;padding:12px 14px}
+.gaps b{display:block}
+.cta{background:var(--navy);color:#fff;border-radius:16px;padding:22px;margin-top:24px}
+.cta p{color:#d9deea;margin:6px 0 16px}
+.cta a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;background:var(--cy);color:#0b1026;border-radius:12px;padding:12px 20px;font-weight:700;text-decoration:none;width:100%;max-width:360px}
+.soon{background:rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;color:#d9deea}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.steps div{background:var(--card);border-radius:12px;padding:14px}
+.steps b{color:var(--pur);display:block;font-size:15px}
+.explain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 16px}.explain div{background:var(--card);border-radius:12px;padding:14px}.explain b{display:block;font-size:16px;margin-bottom:4px}.n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--pur);color:#fff;font-weight:700;font-size:14px;margin-bottom:8px}.sol{background:light-dark(#e9e5fb,#2a2460);border-radius:12px;padding:14px;margin:0 0 18px}.alt{background:var(--pur);color:#fff}
+.fine{color:var(--mut);font-size:13px;margin-top:22px}
+@media(max-width:600px){.explain{grid-template-columns:1fr}.res{grid-template-columns:1fr;justify-items:start}.steps{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.bar i,#arc{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<div class="brand"><svg class="lg" viewBox="0 0 56 56" aria-hidden="true"><rect width="56" height="56" rx="12" fill="#000"/><path d="M28 8l17 10v20L28 48 11 38V18z" fill="none" stroke="#7b5cff" stroke-width="4"/><rect x="21" y="26" width="14" height="11" rx="2" fill="#5b3fd6"/><path d="M24 26v-4a4 4 0 018 0v4" fill="none" stroke="#5b3fd6" stroke-width="3"/></svg><div><b>QuantLock</b><span>Quantum cybersecurity for Quebec financial institutions</span></div></div>
+<h1>Could a future computer break into your bank?</h1>
+<p>Pretend you are in charge of security at a bank. Answer 8 easy questions and see if your bank is ready. No tech knowledge needed.</p>
+<div class="meta"><span>8 easy questions</span><span>2 minutes</span><span>Instant score</span></div>
+<button class="go" id="start">Start the quiz</button>
+</div></header>
+<main class="band"><div class="wrap">
+<section id="intro">
+<h2 style="font-size:24px">The problem in 30 seconds</h2>
+<div class="explain">
+<div><span class="n">1</span><b>Your data has a lock</b>Your banking app, payments and emails are protected by a digital lock called <i>encryption</i>.</div>
+<div><span class="n">2</span><b>A new key is coming</b><i>Quantum computers</i> are super-powerful future computers. One day, they could pick the locks we use today.</div>
+<div><span class="n">3</span><b>Steal now, open later</b>Hackers can copy locked data today and wait until they can open it. Your mortgage file could still be useful to them in 10 years.</div>
+</div>
+<p class="sol"><b>What QuantLock does:</b> we help banks, credit unions and insurers change their locks to new “quantum-proof” ones before that happens.</p>
+<button class="go alt" id="start2">I get it, start the quiz</button>
+</section>
+<div style="height:28px"></div>
+<section id="quiz" class="hide" aria-live="polite">
+<div class="qn" id="qn"></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="q" id="qt"></div>
+<p class="hint" id="qh"></p>
+<div id="opts"></div>
+<div class="nav"><button class="ghost" id="back">← Back</button></div>
+</section>
+<section id="result" class="hide">
+<div class="res">
+<div class="ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="none" stroke="var(--card)" stroke-width="16"/><circle id="arc" cx="100" cy="100" r="84" fill="none" stroke="var(--pur)" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 528" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .8s"/></svg><div class="big"><div><span id="sc">0</span><small>out of 16</small></div></div></div>
+<div><span class="tag" id="band"></span><h2 id="rt"></h2><p id="rd" style="margin:8px 0 0;color:var(--mut)"></p></div>
+</div>
+<h2 style="font-size:22px;margin-top:28px">Your 3 next steps</h2>
+<ul class="gaps" id="gaps"></ul>
+<div class="cta">
+<h2 style="font-size:24px">Book a free readiness workshop</h2>
+<p>In one hour, we show a bank where its weak locks are and what to fix first. Interested? Leave your answer below.</p>
+<div id="book"></div>
+</div>
+<div class="nav"><button class="ghost" id="again">↺ Take it again</button></div>
+</section>
+<section id="about">
+<h2 style="font-size:24px;margin-top:8px">How QuantLock works</h2>
+<div class="steps">
+<div><b>1. Find</b>We find every weak lock in the bank.</div>
+<div><b>2. Test</b>We change the locks on one system first.</div>
+<div><b>3. Upgrade</b>We change the rest, step by step.</div>
+</div>
+<p class="fine">Why now: Canada's plan asks its most important government systems to be quantum-proof by the end of 2031, and all of them by 2035 (Canadian Centre for Cyber Security). The U.S. standards agency NIST published the first three quantum-proof locks in August 2024.<br><br>QuantLock is a student business project (proof of concept). No service is sold through this page and the score is for discussion only.</p>
+</section>
+</div></main>
+<script>
+{
+const FORM_URL = "";
+const Y = ["Yes", "Kind of", "No / not sure"];
+const Q = [
+["Does your bank know every place it uses digital locks to protect data?", "Think: the app, the website, card payments, emails.", Y, "Make a list of all your locks", "You can't change a lock you don't know about. Step one is a full list."],
+["Does your bank know which secrets must stay safe for 10 years or more?", "Like mortgages, medical claims or account numbers.", Y, "Find your long-term secrets", "Data that must stay secret for years is what hackers steal now to open later."],
+["Is one person in charge of upgrading the locks?", "If everyone is in charge, nobody is.", Y, "Put one person in charge", "A project with no owner never gets done. Canada asks each government department to name one."],
+["Has your bank tried the new quantum-proof locks yet?", "The first official ones were published in 2024.", Y, "Try a new lock on one system", "Test on one small system first. It shows the cost before you change everything."],
+["Has your bank asked its suppliers if their locks are quantum-proof?", "Suppliers = the companies whose apps and cloud your bank uses.", Y, "Ask your suppliers", "Most of a bank's locks come from products it buys, so suppliers must upgrade too."],
+["Could your bank swap old locks for new ones easily?", "Like changing a lock without replacing the whole door.", Y, "Make locks easy to swap", "If locks are built in everywhere, every change is slow and expensive."],
+["Do the bank's bosses know about this risk?", "The board of directors approves the big budgets.", Y, "Tell the bosses", "Without the board, there is no money to fix the problem."],
+["Is there money and a deadline to fix it before 2031?", "Canada wants its most important government systems quantum-proof by the end of 2031.", Y, "Set a budget and a deadline", "Changing every lock takes years. Starting late costs more."],
+];
+const $ = id => document.getElementById(id);
+let i = 0, ans = [];
+const show = id => { ["quiz", "result"].forEach(s => $(s).classList.toggle("hide", s !== id)); $("intro").classList.add("hide"); };
+function render() {
+$("qn").textContent = "Question " + (i + 1) + " of " + Q.length;
+$("prog").style.width = (i / Q.length * 100) + "%";
+$("qt").textContent = Q[i][0];
+$("qh").textContent = Q[i][1];
+$("qh").style.display = Q[i][1] ? "" : "none";
+$("opts").innerHTML = Q[i][2].map((o, k) => `<button class="opt" data-k="${k}" ${ans[i] === k ? 'style="border-color:var(--pur)"' : ""}>${o}</button>`).join("");
+$("back").style.visibility = i ? "visible" : "hidden";
+}
+$("opts").addEventListener("click", e => {
+const b = e.target.closest(".opt"); if (!b) return;
+ans[i] = +b.dataset.k;
+if (i < Q.length - 1) { i++; render(); } else finish();
+});
+$("back").addEventListener("click", () => { if (i) { i--; render(); } });
+$("start2").addEventListener("click", () => { i = 0; ans = []; show("quiz"); render(); $("quiz").scrollIntoView({ behavior: "smooth" }); });
+$("start").addEventListener("click", () => { i = 0; ans = []; show("quiz"); render(); $("quiz").scrollIntoView({ behavior: "smooth" }); });
+$("again").addEventListener("click", () => { i = 0; ans = []; show("quiz"); render(); $("quiz").scrollIntoView({ behavior: "smooth" }); });
+function finish() {
+const pts = ans.map(a => 2 - a), score = pts.reduce((a, b) => a + b, 0);
+show("result");
+$("sc").textContent = score;
+setTimeout(() => $("arc").setAttribute("stroke-dasharray", (score / 16 * 528) + " 528"), 50);
+const b = score <= 5 ? ["Not ready", "var(--red)", "#fff", "Your bank's locks could be picked.", "Hackers could already be copying data to open later. Good news: the first steps are simple."]
+: score <= 11 ? ["Halfway there", "var(--gold)", "#0b1026", "Good start, but some doors are still open.", "Your bank has some pieces in place. A plan and one small test would close the biggest gaps."]
+: ["Ready", "var(--cy)", "#0b1026", "Nice! Your bank is ahead of most.", "Keep going: keep testing, keep the bosses informed and check your suppliers."];
+$("band").textContent = b[0]; $("band").style.background = b[1]; $("band").style.color = b[2];
+$("arc").setAttribute("stroke", b[1]);
+$("rt").textContent = b[3]; $("rd").textContent = b[4];
+const order = pts.map((p, k) => [p, k]).sort((a, c) => a[0] - c[0]).slice(0, 3);
+$("gaps").innerHTML = order.map(([p, k]) => `<li><b>${Q[k][3]}</b>${Q[k][4]}</li>`).join("");
+$("book").innerHTML = FORM_URL
+? `<a class="btn" href="${FORM_URL}" target="_blank" rel="noopener">Book my free workshop</a><p style="font-size:14px;margin:10px 0 0">Your score: <b>${score}/16</b>. You'll be asked for it on the form.</p>`
+: `<div class="soon">Booking opens soon. Your score: <b>${score}/16</b>.</div>`;
+$("result").scrollIntoView({ behavior: "smooth" });
+}
+}
+</script>
+</body>
+</html>
