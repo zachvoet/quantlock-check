@@ -66,8 +66,8 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 <header class="top"><div class="wrap">
 <div class="brand"><svg class="lg" viewBox="0 0 56 56" aria-hidden="true"><rect width="56" height="56" rx="12" fill="#000"/><path d="M28 8l17 10v20L28 48 11 38V18z" fill="none" stroke="#7b5cff" stroke-width="4"/><rect x="21" y="26" width="14" height="11" rx="2" fill="#5b3fd6"/><path d="M24 26v-4a4 4 0 018 0v4" fill="none" stroke="#5b3fd6" stroke-width="3"/></svg><div><b>QuantLock</b><span>Quantum cybersecurity for Quebec financial institutions</span></div></div>
 <h1>Could a future computer break into your bank?</h1>
-<p>Pretend you are in charge of security at a bank. Answer 8 easy questions and see if your bank is ready. No tech knowledge needed.</p>
-<div class="meta"><span>8 easy questions</span><span>2 minutes</span><span>Instant score</span></div>
+<p>Pretend you are in charge of security at a bank. Answer 5 easy questions and see if your bank is ready. No tech knowledge needed.</p>
+<div class="meta"><span>5 easy questions</span><span>1 minute</span><span>Instant score</span></div>
 <button class="go" id="start">Start the quiz</button>
 </div></header>
 <main class="band"><div class="wrap">
@@ -92,7 +92,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 </section>
 <section id="result" class="hide">
 <div class="res">
-<div class="ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="none" stroke="var(--card)" stroke-width="16"/><circle id="arc" cx="100" cy="100" r="84" fill="none" stroke="var(--pur)" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 528" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .8s"/></svg><div class="big"><div><span id="sc">0</span><small>out of 16</small></div></div></div>
+<div class="ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="none" stroke="var(--card)" stroke-width="16"/><circle id="arc" cx="100" cy="100" r="84" fill="none" stroke="var(--pur)" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 528" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .8s"/></svg><div class="big"><div><span id="sc">0</span><small>out of 10</small></div></div></div>
 <div><span class="tag" id="band"></span><h2 id="rt"></h2><p id="rd" style="margin:8px 0 0;color:var(--mut)"></p></div>
 </div>
 <h2 style="font-size:22px;margin-top:28px">Your 3 next steps</h2>
@@ -123,9 +123,6 @@ const Q = [
 ["Does your bank know which secrets must stay safe for 10 years or more?", "Like mortgages, medical claims or account numbers.", Y, "Find your long-term secrets", "Data that must stay secret for years is what hackers steal now to open later."],
 ["Is one person in charge of upgrading the locks?", "If everyone is in charge, nobody is.", Y, "Put one person in charge", "A project with no owner never gets done. Canada asks each government department to name one."],
 ["Has your bank tried the new quantum-proof locks yet?", "The first official ones were published in 2024.", Y, "Try a new lock on one system", "Test on one small system first. It shows the cost before you change everything."],
-["Has your bank asked its suppliers if their locks are quantum-proof?", "Suppliers = the companies whose apps and cloud your bank uses.", Y, "Ask your suppliers", "Most of a bank's locks come from products it buys, so suppliers must upgrade too."],
-["Could your bank swap old locks for new ones easily?", "Like changing a lock without replacing the whole door.", Y, "Make locks easy to swap", "If locks are built in everywhere, every change is slow and expensive."],
-["Do the bank's bosses know about this risk?", "The board of directors approves the big budgets.", Y, "Tell the bosses", "Without the board, there is no money to fix the problem."],
 ["Is there money and a deadline to fix it before 2031?", "Canada wants its most important government systems quantum-proof by the end of 2031.", Y, "Set a budget and a deadline", "Changing every lock takes years. Starting late costs more."],
 ];
 const $ = id => document.getElementById(id);
@@ -153,9 +150,9 @@ function finish() {
 const pts = ans.map(a => 2 - a), score = pts.reduce((a, b) => a + b, 0);
 show("result");
 $("sc").textContent = score;
-setTimeout(() => $("arc").setAttribute("stroke-dasharray", (score / 16 * 528) + " 528"), 50);
-const b = score <= 5 ? ["Not ready", "var(--red)", "#fff", "Your bank's locks could be picked.", "Hackers could already be copying data to open later. Good news: the first steps are simple."]
-: score <= 11 ? ["Halfway there", "var(--gold)", "#0b1026", "Good start, but some doors are still open.", "Your bank has some pieces in place. A plan and one small test would close the biggest gaps."]
+setTimeout(() => $("arc").setAttribute("stroke-dasharray", (score / 10 * 528) + " 528"), 50);
+const b = score <= 3 ? ["Not ready", "var(--red)", "#fff", "Your bank's locks could be picked.", "Hackers could already be copying data to open later. Good news: the first steps are simple."]
+: score <= 7 ? ["Halfway there", "var(--gold)", "#0b1026", "Good start, but some doors are still open.", "Your bank has some pieces in place. A plan and one small test would close the biggest gaps."]
 : ["Ready", "var(--cy)", "#0b1026", "Nice! Your bank is ahead of most.", "Keep going: keep testing, keep the bosses informed and check your suppliers."];
 $("band").textContent = b[0]; $("band").style.background = b[1]; $("band").style.color = b[2];
 $("arc").setAttribute("stroke", b[1]);
@@ -163,8 +160,8 @@ $("rt").textContent = b[3]; $("rd").textContent = b[4];
 const order = pts.map((p, k) => [p, k]).sort((a, c) => a[0] - c[0]).slice(0, 3);
 $("gaps").innerHTML = order.map(([p, k]) => `<li><b>${Q[k][3]}</b>${Q[k][4]}</li>`).join("");
 $("book").innerHTML = FORM_URL
-? `<a class="btn" href="${FORM_URL}${score}" target="_blank" rel="noopener">Send my score</a><p style="font-size:14px;margin:10px 0 0">Your score (<b>${score}/16</b>) is filled in for you.</p>`
-: `<div class="soon">Booking opens soon. Your score: <b>${score}/16</b>.</div>`;
+? `<a class="btn" href="${FORM_URL}${score}" target="_blank" rel="noopener">Send my score</a><p style="font-size:14px;margin:10px 0 0">Your score (<b>${score}/10</b>) is filled in for you.</p>`
+: `<div class="soon">Booking opens soon. Your score: <b>${score}/10</b>.</div>`;
 $("result").scrollIntoView({ behavior: "smooth" });
 }
 }
