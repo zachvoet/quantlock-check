@@ -98,8 +98,8 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 <h2 style="font-size:22px;margin-top:28px">Your 3 next steps</h2>
 <ul class="gaps" id="gaps"></ul>
 <div class="cta">
-<h2 style="font-size:24px">Book a free readiness workshop</h2>
-<p>In one hour, we show a bank where its weak locks are and what to fix first. Interested? Leave your answer below.</p>
+<h2 style="font-size:24px">Last step: send your score</h2>
+<p>Help our class project: send your score and tell us if you would book a free one-hour workshop where we show a bank its weak locks. Takes 20 seconds.</p>
 <div id="book"></div>
 </div>
 <div class="nav"><button class="ghost" id="again">↺ Take it again</button></div>
@@ -116,7 +116,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 </div></main>
 <script>
 {
-const FORM_URL = "";
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeWU0l6uCl1CrM9ErOtylf-dN4KPfonguETaxPpaCmLMZnIuA/viewform?usp=pp_url&entry.1889820271=";
 const Y = ["Yes", "Kind of", "No / not sure"];
 const Q = [
 ["Does your bank know every place it uses digital locks to protect data?", "Think: the app, the website, card payments, emails.", Y, "Make a list of all your locks", "You can't change a lock you don't know about. Step one is a full list."],
@@ -163,7 +163,7 @@ $("rt").textContent = b[3]; $("rd").textContent = b[4];
 const order = pts.map((p, k) => [p, k]).sort((a, c) => a[0] - c[0]).slice(0, 3);
 $("gaps").innerHTML = order.map(([p, k]) => `<li><b>${Q[k][3]}</b>${Q[k][4]}</li>`).join("");
 $("book").innerHTML = FORM_URL
-? `<a class="btn" href="${FORM_URL}" target="_blank" rel="noopener">Book my free workshop</a><p style="font-size:14px;margin:10px 0 0">Your score: <b>${score}/16</b>. You'll be asked for it on the form.</p>`
+? `<a class="btn" href="${FORM_URL}${score}" target="_blank" rel="noopener">Send my score</a><p style="font-size:14px;margin:10px 0 0">Your score (<b>${score}/16</b>) is filled in for you.</p>`
 : `<div class="soon">Booking opens soon. Your score: <b>${score}/16</b>.</div>`;
 $("result").scrollIntoView({ behavior: "smooth" });
 }
