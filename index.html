@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quantum Readiness Check</title>
+<title>QuantLock: Is your bank data safe?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,700&display=swap" rel="stylesheet">
 <style>
@@ -65,9 +65,9 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 <body>
 <header class="top"><div class="wrap">
 <div class="brand"><svg class="lg" viewBox="0 0 56 56" aria-hidden="true"><rect width="56" height="56" rx="12" fill="#000"/><path d="M28 8l17 10v20L28 48 11 38V18z" fill="none" stroke="#7b5cff" stroke-width="4"/><rect x="21" y="26" width="14" height="11" rx="2" fill="#5b3fd6"/><path d="M24 26v-4a4 4 0 018 0v4" fill="none" stroke="#5b3fd6" stroke-width="3"/></svg><div><b>QuantLock</b><span>Quantum cybersecurity for Quebec financial institutions</span></div></div>
-<h1>Could a future computer break into your bank?</h1>
-<p>Pretend you are in charge of security at a bank. Answer 5 easy questions and see if your bank is ready. No tech knowledge needed.</p>
-<div class="meta"><span>5 easy questions</span><span>1 minute</span><span>Instant score</span></div>
+<h1>Is your bank data safe from future computers?</h1>
+<p>Answer 5 quick questions about your own life. There are no wrong answers and no tech knowledge needed.</p>
+<div class="meta"><span>5 easy questions</span><span>1 minute</span><span>No wrong answers</span></div>
 <button class="go" id="start">Start the quiz</button>
 </div></header>
 <main class="band"><div class="wrap">
@@ -92,14 +92,14 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 </section>
 <section id="result" class="hide">
 <div class="res">
-<div class="ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="none" stroke="var(--card)" stroke-width="16"/><circle id="arc" cx="100" cy="100" r="84" fill="none" stroke="var(--pur)" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 528" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .8s"/></svg><div class="big"><div><span id="sc">0</span><small>out of 10</small></div></div></div>
+<div class="ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" fill="none" stroke="var(--card)" stroke-width="16"/><circle id="arc" cx="100" cy="100" r="84" fill="none" stroke="var(--pur)" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 528" transform="rotate(-90 100 100)" style="transition:stroke-dasharray .8s"/></svg><div class="big"><div><span id="sc">0</span><small>concern score</small></div></div></div>
 <div><span class="tag" id="band"></span><h2 id="rt"></h2><p id="rd" style="margin:8px 0 0;color:var(--mut)"></p></div>
 </div>
-<h2 style="font-size:22px;margin-top:28px">Your 3 next steps</h2>
+<h2 style="font-size:22px;margin-top:28px">3 things to know</h2>
 <ul class="gaps" id="gaps"></ul>
 <div class="cta">
-<h2 style="font-size:24px">Last step: send your score</h2>
-<p>Help our class project: send your score and tell us if you would book a free one-hour workshop where we show a bank its weak locks. Takes 20 seconds.</p>
+<h2 style="font-size:24px">Last step: send your answer</h2>
+<p>Help our class project: send your score and tell us if banks should start upgrading their locks now. Takes 20 seconds.</p>
 <div id="book"></div>
 </div>
 <div class="nav"><button class="ghost" id="again">↺ Take it again</button></div>
@@ -111,19 +111,18 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cy);outline-offset:
 <div><b>2. Test</b>We change the locks on one system first.</div>
 <div><b>3. Upgrade</b>We change the rest, step by step.</div>
 </div>
-<p class="fine">Why now: Canada's plan asks its most important government systems to be quantum-proof by the end of 2031, and all of them by 2035 (Canadian Centre for Cyber Security). The U.S. standards agency NIST published the first three quantum-proof locks in August 2024.<br><br>QuantLock is a student business project (proof of concept). No service is sold through this page and the score is for discussion only.</p>
+<p class="fine">Why now: Canada's plan asks its most important government systems to be quantum-proof by the end of 2031, and all of them by 2035 (Canadian Centre for Cyber Security). The U.S. standards agency NIST published the first three quantum-proof locks in August 2024.<br><br>QuantLock is a student business project (proof of concept). No service is sold through this page and your answers are anonymous.</p>
 </section>
 </div></main>
 <script>
 {
 const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeWU0l6uCl1CrM9ErOtylf-dN4KPfonguETaxPpaCmLMZnIuA/viewform?usp=pp_url&entry.1889820271=";
-const Y = ["Yes", "Kind of", "No / not sure"];
 const Q = [
-["Does your bank know every place it uses digital locks to protect data?", "Think: the app, the website, card payments, emails.", Y, "Make a list of all your locks", "You can't change a lock you don't know about. Step one is a full list."],
-["Does your bank know which secrets must stay safe for 10 years or more?", "Like mortgages, medical claims or account numbers.", Y, "Find your long-term secrets", "Data that must stay secret for years is what hackers steal now to open later."],
-["Is one person in charge of upgrading the locks?", "If everyone is in charge, nobody is.", Y, "Put one person in charge", "A project with no owner never gets done. Canada asks each government department to name one."],
-["Has your bank tried the new quantum-proof locks yet?", "The first official ones were published in 2024.", Y, "Try a new lock on one system", "Test on one small system first. It shows the cost before you change everything."],
-["Is there money and a deadline to fix it before 2031?", "Canada wants its most important government systems quantum-proof by the end of 2031.", Y, "Set a budget and a deadline", "Changing every lock takes years. Starting late costs more."],
+["Do you use a banking app or pay with your card?", "", [["Yes",2],["Sometimes",1],["No",0]], "Your money lives online", "Every app login and card tap is protected by a digital lock."],
+["Would it bother you if a stranger could read your bank info 10 years from now?", "Things like your account number, balance or loan.", [["Yes",2],["A little",1],["No",0]], "Bank data stays valuable for years", "Account numbers and loan files are still useful to hackers 10 years later."],
+["Before today, did you know hackers can steal locked data now and unlock it later?", "", [["Yes",0],["Kind of",1],["No",2]], "Steal now, open later is real", "Hackers can copy locked data today and wait for a computer that can open it."],
+["Do you think your bank is already getting ready for this?", "", [["Yes",0],["Not sure",1],["No",2]], "Most banks have not started yet", "Only about 5% of organizations use quantum-safe locks so far (DigiCert)."],
+["Would you trust a bank more if it upgraded its locks before 2031?", "", [["Yes",2],["Maybe",1],["No",0]], "There is a deadline", "Canada wants its most important government systems quantum-proof by the end of 2031."],
 ];
 const $ = id => document.getElementById(id);
 let i = 0, ans = [];
@@ -134,7 +133,7 @@ $("prog").style.width = (i / Q.length * 100) + "%";
 $("qt").textContent = Q[i][0];
 $("qh").textContent = Q[i][1];
 $("qh").style.display = Q[i][1] ? "" : "none";
-$("opts").innerHTML = Q[i][2].map((o, k) => `<button class="opt" data-k="${k}" ${ans[i] === k ? 'style="border-color:var(--pur)"' : ""}>${o}</button>`).join("");
+$("opts").innerHTML = Q[i][2].map((o, k) => `<button class="opt" data-k="${k}" ${ans[i] === k ? 'style="border-color:var(--pur)"' : ""}>${o[0]}</button>`).join("");
 $("back").style.visibility = i ? "visible" : "hidden";
 }
 $("opts").addEventListener("click", e => {
@@ -147,20 +146,20 @@ $("start2").addEventListener("click", () => { i = 0; ans = []; show("quiz"); ren
 $("start").addEventListener("click", () => { i = 0; ans = []; show("quiz"); render(); $("quiz").scrollIntoView({ behavior: "smooth" }); });
 $("again").addEventListener("click", () => { i = 0; ans = []; show("quiz"); render(); $("quiz").scrollIntoView({ behavior: "smooth" }); });
 function finish() {
-const pts = ans.map(a => 2 - a), score = pts.reduce((a, b) => a + b, 0);
+const pts = ans.map((a, k) => Q[k][2][a][1]), score = pts.reduce((a, b) => a + b, 0);
 show("result");
 $("sc").textContent = score;
 setTimeout(() => $("arc").setAttribute("stroke-dasharray", (score / 10 * 528) + " 528"), 50);
-const b = score <= 3 ? ["Not ready", "var(--red)", "#fff", "Your bank's locks could be picked.", "Hackers could already be copying data to open later. Good news: the first steps are simple."]
-: score <= 7 ? ["Halfway there", "var(--gold)", "#0b1026", "Good start, but some doors are still open.", "Your bank has some pieces in place. A plan and one small test would close the biggest gaps."]
-: ["Ready", "var(--cy)", "#0b1026", "Nice! Your bank is ahead of most.", "Keep going: keep testing, keep the bosses informed and check your suppliers."];
+const b = score <= 3 ? ["Low concern", "var(--cy)", "#0b1026", "This doesn't worry you much yet.", "That's normal. Most people have never heard of this problem, and that's exactly why banks need to act for them."]
+: score <= 7 ? ["Some concern", "var(--gold)", "#0b1026", "This matters to you more than you thought.", "Your bank data is online and stays valuable for years. Banks need to upgrade their locks before it's too late."]
+: ["High concern", "var(--red)", "#fff", "This really matters to you.", "You care about your data, and most banks haven't started upgrading yet. That's the gap QuantLock fills."];
 $("band").textContent = b[0]; $("band").style.background = b[1]; $("band").style.color = b[2];
 $("arc").setAttribute("stroke", b[1]);
 $("rt").textContent = b[3]; $("rd").textContent = b[4];
-const order = pts.map((p, k) => [p, k]).sort((a, c) => a[0] - c[0]).slice(0, 3);
+const order = pts.map((p, k) => [p, k]).sort((a, c) => c[0] - a[0]).slice(0, 3);
 $("gaps").innerHTML = order.map(([p, k]) => `<li><b>${Q[k][3]}</b>${Q[k][4]}</li>`).join("");
 $("book").innerHTML = FORM_URL
-? `<a class="btn" href="${FORM_URL}${score}" target="_blank" rel="noopener">Send my score</a><p style="font-size:14px;margin:10px 0 0">Your score (<b>${score}/10</b>) is filled in for you.</p>`
+? `<a class="btn" href="${FORM_URL}${score}" target="_blank" rel="noopener">Send my answer</a><p style="font-size:14px;margin:10px 0 0">Your score (<b>${score}/10</b>) is filled in for you.</p>`
 : `<div class="soon">Booking opens soon. Your score: <b>${score}/10</b>.</div>`;
 $("result").scrollIntoView({ behavior: "smooth" });
 }
